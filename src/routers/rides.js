@@ -82,7 +82,7 @@ router.get('/rides',auth.driverAuth,async(req,res)=>{
   // User get his own rides
   router.get('/userRides',auth.normalAuth,async(req,res)=>{
     try{
-        const rides = await Rides.find({user:req.user._id})
+        const rides = await Rides.find({user:req.user._id}).populate('driver')
         if(!rides){
          return res.status(404).send('No rides')
         }
