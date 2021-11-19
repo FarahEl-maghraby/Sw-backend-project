@@ -64,8 +64,8 @@ router.get("/driverprofile", auth.driverAuth, async (req, res) => {
 // add favorite areas
 router.patch("/driverprofile", auth.driverAuth,async (req, res) => {
   try {
-    const updates = Object.keys(req.body)
-    updates.forEach((update)=>(req.driver[update]=req.body[update]))
+   
+     req.driver.favoriteAreas =req.driver.favoriteAreas.concat(req.body.favoriteAreas)
     await req.driver.save();
     res.status(200).send(req.driver);
   } catch (e) {

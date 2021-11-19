@@ -129,6 +129,7 @@ router.patch('/userRidesReject/:id',auth.normalAuth,async(req,res)=>{
        }
       rides.offer = 0
       rides.driver = null
+      rides.accepted = false
       await rides.save();
      res.status(200).send(rides)
     }
