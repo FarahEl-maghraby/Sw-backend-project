@@ -21,7 +21,6 @@ router.post('/rides',auth.normalAuth,async(req,res)=>{
 
 // get rides which match fav areas of driver
 router.get('/rides',auth.driverAuth,async(req,res)=>{
-    // console.log(req.driver.favoriteAreas)
     const test = req.driver.favoriteAreas
     try{
       // 3amlna populate ashn a get all user detalis
@@ -42,10 +41,8 @@ router.get('/rides',auth.driverAuth,async(req,res)=>{
   // driver could get ride by id
 
   router.get('/rides/:id',auth.driverAuth,async(req,res)=>{
-    // console.log(req.driver.favoriteAreas)
     const test = req.driver.favoriteAreas
     try{
-      // 3amlna populate ashn a get all user detalis
       const rides = await Rides.findById({_id:req.params.id})
      if(!rides){
       return res.status(404).send('No rides')
@@ -61,9 +58,7 @@ router.get('/rides',auth.driverAuth,async(req,res)=>{
   router.patch('/rides/:id',auth.driverAuth,async(req,res)=>{
     const updates = Object.keys(req.body)
     try{
-      // 3amlna populate ashn a get all user detalis
       const rides = await Rides.findById({_id:req.params.id})
-      // console.log(rides)
       if(!rides){
         return res.status(404).send('No rides')
        }
@@ -102,7 +97,6 @@ router.get('/rides',auth.driverAuth,async(req,res)=>{
         try{
           // 3amlna populate ashn a get all user detalis
           const rides = await Rides.findById({_id:req.params.id})
-          // console.log(rides)
           if(!rides){
             return res.status(404).send('No rides')
            }
@@ -121,9 +115,7 @@ router.get('/rides',auth.driverAuth,async(req,res)=>{
 router.patch('/userRidesReject/:id',auth.normalAuth,async(req,res)=>{
     const updates = Object.keys(req.body)
     try{
-      // 3amlna populate ashn a get all user detalis
       const rides = await Rides.findById({_id:req.params.id})
-      // console.log(rides)
       if(!rides){
         return res.status(404).send('No rides')
        }

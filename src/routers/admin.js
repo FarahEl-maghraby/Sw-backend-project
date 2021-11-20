@@ -57,7 +57,6 @@ router.get('/allDrivers',auth.normalAuth,auth.requiresAdmin,(req,res)=>{
 
 // get By Id of user
 router.get("/users/:id", auth.normalAuth,auth.requiresAdmin, (req, res) => {
-  console.log(req.params);
   const _id = req.params.id;
   Users.findById(_id)
     .then((user) => {
@@ -75,7 +74,6 @@ router.get("/users/:id", auth.normalAuth,auth.requiresAdmin, (req, res) => {
 
 // get By Id of driver
 router.get("/driver/:id", auth.normalAuth,auth.requiresAdmin, (req, res) => {
-  // console.log(req.params);
   const _id = req.params.id;
   Drivers.findById(_id)
     .then((user) => {

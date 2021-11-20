@@ -28,15 +28,6 @@ accepted:{
 }
 });
 
-////////////////////////////////////////////////////////////////////////////////
-
-// userSchema.virtual('rates',{
-//   ref:'DriversRequests',    // Name of model which i am making relation with
-//   localField:'_id',
-//   foreignField:'userRating.userrate'
-// })
-//////////////////////////////////////////////////////////////////////////////
-
 
 const Rides = mongoose.model("Rides", rideSchema);
 module.exports = Rides;

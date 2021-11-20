@@ -45,7 +45,6 @@ router.get('/drivers',auth.normalAuth,(req,res)=>{
 
 
 router.get("/udriver/:id", auth.normalAuth, (req, res) => {
-  console.log(req.params);
   const _id = req.params.id;
   Drivers.findOne({_id,verified:true})
     .then((driver) => {
@@ -63,7 +62,6 @@ router.get("/udriver/:id", auth.normalAuth, (req, res) => {
 // // version 3 --> (password)
 router.patch("/udriver/:id", auth.normalAuth, async (req, res) => {
   const updates = Object.keys(req.body);
-  // console.log(updates);
   const allowedUpdates = ["rate"];
   const isValid = updates.every((el) => allowedUpdates.includes(el));
   if (!isValid) {
@@ -105,75 +103,6 @@ router.delete("/userlogout", auth.normalAuth, async (req, res) => {
   }
 });
 
-////////////////////////////////////////////////////////////////////////////////
 
-// // version 3 --> (password)
-// router.patch("/users/:id", auth, async (req, res) => {
-//   const updates = Object.keys(req.body);
-//   console.log(updates);
-//   const allowedUpdates = ["name", "password", "age"];
-
-//   // true or false
-//   // name ==> true
-//   // age ==> false (User update which he is not aloowed to update)
-//   const isValid = updates.every((el) => allowedUpdates.includes(el));
-//   console.log(isValid);
-//   // true
-//   // isValid ==> false
-//   if (!isValid) {
-//     return res.status(400).send("can't update");
-//   }
-
-//   console.log(updates);
-//   const _id = req.params.id;
-//   try {
-//     const user = await User.findById(_id);
-//     if (!user) {
-//       return res.status(400).send("No user is found");
-//     }
-//     // user.name
-//     // user.password
-//     console.log(user);
-//     //    ['name','password']
-//     //    user.name = req.body.name
-//     //    amr1112 = omar
-//     //    user.password = req.body.password
-//     //    1234566678amr = 22322132213
-//     updates.forEach((update) => (user[update] = req.body[update]));
-//     await user.save();
-//     res.status(200).send(user);
-//   } catch (e) {
-//     res.status(500).send("Error has occureed " + e);
-//   }
-// });
-// ////////////////////////////////////////////////////////////////////////////
-
-// // Delete by id
-// router.delete("/users/:id", auth, async (req, res) => {
-//   const _id = req.params.id;
-//   try {
-//     const user = await User.findByIdAndDelete(_id);
-//     if (!user) {
-//       return res.status(400).send("Not found");
-//     }
-//     res.status(200).send(user);
-//   } catch (e) {
-//     res.status(500).send(e);
-//   }
-// });
-
-
-
-
-
-// router.delete("/logoutall", auth, async (req, res) => {
-//   try {
-//     req.user.tokens = [];
-//     await req.user.save();
-//     res.send("Logout all was successfully done");
-//   } catch (e) {
-//     res.send("Error has occurred " + e);
-//   }
-// });
 
 module.exports = router;
