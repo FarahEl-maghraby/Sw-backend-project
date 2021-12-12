@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const validator = require("validator");
 const bcrypt = require("bcryptjs");
-const controls = require('../controls/app')
+const controls = require('../controllers/app')
 
 const driversRequestsScehma = new mongoose.Schema({
   username: {
@@ -40,12 +40,12 @@ const driversRequestsScehma = new mongoose.Schema({
     required:true
   },
   nationalId:{
-    type:String,
+    type:Number,
     trim:true,
     required:true,
     validate(value){
-      if(value.length !== 14){
-        throw new Error('Invalid Naional ID')
+      if(value.toString().length !== 14){
+        throw new Error()
       }
     }
 
@@ -112,12 +112,9 @@ driversRequestsScehma.pre("save", async function (next) {
 driversRequestsScehma.statics.findByCredentials = async (username, password) => {
   
   const driver = await DriversRequests.findOne({ username });
+  console.log(driver)
   if (!driver) {
     throw new Error("Unable to login.Please check username or password");
-  }
-
-  if(driver.verified === false){
-    throw new Error('Sorry your account has not been verified yet')
   }
 
   const isMatch = await bcrypt.compare(password, driver.password);
@@ -125,6 +122,12 @@ driversRequestsScehma.statics.findByCredentials = async (username, password) => 
   if (!isMatch) {
     throw new Error("Unable to login. Please check username or password");
   }
+
+  if(driver.verified === false){
+    throw new Error('Sorry your account has not been verified yet')
+  }
+
+ 
 
   return driver;
 };

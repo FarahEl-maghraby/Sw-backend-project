@@ -1,60 +1,22 @@
 const express = require("express");
 const router = new express.Router();
 const auth = require("../middleware/auth");
-const Drivers = require("../models/driversRequests")
-const Rides = require('../models/rides')
+const DriversControllers = require('../controllers/driverControllers')
 
 // // CRUD operations
 
 // Drivers SignUp
-router.post("/drivers", async (req, res) => {
-  try {
-    const driver = new Drivers(req.body);
-    await driver.save();
-    res.status(200).send(driver);
-  } catch (e) {
-    res.status(400).send(e);
-  }
-});
+router.post("/drivers", DriversControllers.driversSignUp);
 
-router.post("/drivers/login", async (req, res) => {
-  try {
-    const driver = await Drivers.findByCredentials(
-      req.body.username,
-      req.body.password
-    );
-    const token = await driver.generateToken();
-    res.status(200).send({ driver, token });
-  } catch (e) {
-    res.status(400).send('e'+e);
-  }
-});
-
+// Drivers login
+router.post("/drivers/login",DriversControllers.driverLogin);
 
 // get rating
-router.get('/userRatings',auth.driverAuth,async(req,res)=>{
-    try{
-        res.send(req.driver.rate)
-    }
-    catch(e){
-        res.status(500).send(e)
-    }
-})
+router.get('/userRatings',auth.driverAuth,DriversControllers.getRatings)
 
+// driver logout
 
-// // driver logout
-
-router.delete("/driverlogout", auth.driverAuth, async (req, res) => {
-  try {
-    req.driver.tokens = req.driver.tokens.filter((el) => {
-      return el.token !== req.token;
-    });
-    await req.driver.save();
-    res.send("Logout successfuuly");
-  } catch (e) {
-    res.send("Error has occurred " + e);
-  }
-});
+router.delete("/driverlogout", auth.driverAuth,DriversControllers.driversLogout);
 
 // Driver profile
 router.get("/driverprofile", auth.driverAuth, async (req, res) => {
@@ -62,16 +24,7 @@ router.get("/driverprofile", auth.driverAuth, async (req, res) => {
 });
 
 // add favorite areas
-router.patch("/driverprofile", auth.driverAuth,async (req, res) => {
-  try {
-   
-     req.driver.favoriteAreas =req.driver.favoriteAreas.concat(req.body.favoriteAreas)
-    await req.driver.save();
-    res.status(200).send(req.driver);
-  } catch (e) {
-    res.status(400).send(e);
-  }
-});
+router.patch("/driverprofile", auth.driverAuth,DriversControllers.addFavortiteAreas);
 
 
 module.exports = router;

@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const validator = require("validator");
 const bcrypt = require("bcryptjs");
-const controls = require('../controls/app')
+const controls = require('../controllers/app')
 
 const userSchema = new mongoose.Schema({
   username: {
