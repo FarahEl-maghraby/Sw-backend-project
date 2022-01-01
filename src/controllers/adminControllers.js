@@ -1,5 +1,6 @@
 const Drivers = require("../models/driversRequests")
 const Users = require("../models/users")
+const Rides = require("../models/rides")
 
 exports.verifyDrivers =async (req, res) => {
     const updates = Object.keys(req.body);
@@ -92,3 +93,29 @@ exports.deleteDriverByID = async (req, res) => {
       res.status(500).send('ee'+e);
     }
   }
+
+  ///////////////////////////////////////////////////////////////////////////////////
+
+  // get all rides
+
+//   exports.getAllRides = (req,res)=>{
+//     Rides.find({}).then((users)=>{
+//         res.status(200).send(users)
+//     }).catch((error)=>{
+//         res.status(500).send(error)
+//     })
+// }
+
+exports.getAllRides = async(req,res)=>{
+  try{
+    // 3amlna populate ashn a get all user detalis
+    const rides = await Rides.find({}).populate('user').populate('driver')
+   if(!rides){
+    return res.status(404).send('No rides')
+   }
+   res.status(200).send(rides)
+  }
+  catch(e){
+    res.status(400).send('e'+e)
+  }
+}

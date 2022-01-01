@@ -23,6 +23,9 @@ const userSchema = new mongoose.Schema({
     trim:true,
     lowercase:true
 },
+dateOfBirth:{
+  type:Date
+},
 
   mobilenumber: {
     type: String,

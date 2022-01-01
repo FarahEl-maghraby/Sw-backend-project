@@ -22,10 +22,28 @@ offer:{
     type:Number,
     default:0
 },
+discount:{
+    type:Number,
+    default:0
+},
 accepted:{
     type:Boolean,
     default:false
+},
+arrivedDestinaition:{
+    type:Boolean,
+    default:false
+},
+arrivedSource:{
+    type:Boolean,
+    default:false
+},
+passengers:{
+    type:Number,
+    default:1
 }
+},{
+    timestamps:{currentTime:()=> new Date().getTime() + (2*60*60*1000)}
 });
 
 

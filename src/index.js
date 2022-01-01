@@ -3,6 +3,7 @@ const userRouter = require('./routers/users')
 const driversRequestsRouter = require('./routers/driversRequests')
 const adminRouter = require('./routers/admin')
 const ridesRouter = require('./routers/rides')
+const discountRouter = require('./routers/discounts.js')
 
 require('dotenv').config()
 
@@ -22,5 +23,6 @@ app.use(userRouter)
 app.use(driversRequestsRouter)
 app.use(adminRouter)
 app.use(ridesRouter)
+app.use(discountRouter)
 
 app.listen(port,()=>{console.log('Server is running '+ port)})

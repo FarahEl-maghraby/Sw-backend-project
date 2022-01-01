@@ -8,6 +8,9 @@ const AdminControllers = require('../controllers/adminControllers')
 // admin verify driver
 router.patch("/verifydriver/:id",auth.normalAuth,auth.requiresAdmin,AdminControllers.verifyDrivers);
 
+// get all Rides
+router.get('/allRides',auth.normalAuth,auth.requiresAdmin,AdminControllers.getAllRides)
+
 // Admin get all users
 
 router.get('/users',auth.normalAuth,auth.requiresAdmin,AdminControllers.getAllUsers)

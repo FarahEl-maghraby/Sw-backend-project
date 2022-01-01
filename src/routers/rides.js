@@ -16,7 +16,7 @@ router.get('/rides',auth.driverAuth,RidesControllers.getRidesMatchDriversFavArea
   router.get('/rides/:id',auth.driverAuth,RidesControllers.getRideById)
   
   // update rides which match fav areas of driver
-  router.patch('/rides/:id',auth.driverAuth,RidesControllers.updateRidesToSetPrice)
+  router.patch('/rides/:id',auth.driverAuth,RidesControllers.updateRides)
 
   // User get his own rides
   router.get('/userRides',auth.normalAuth,RidesControllers.userGetHisOwnRides)
@@ -28,5 +28,7 @@ router.get('/rides',auth.driverAuth,RidesControllers.getRidesMatchDriversFavArea
 
 router.patch('/userRidesReject/:id',auth.normalAuth,RidesControllers.userRejectRide)
 
+// related to neeq requirment 
+router.get('/driverRides',auth.driverAuth,RidesControllers.getDriverRides)
 
 module.exports = router;

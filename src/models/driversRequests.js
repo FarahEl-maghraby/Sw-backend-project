@@ -62,6 +62,11 @@ const driversRequestsScehma = new mongoose.Schema({
     default:false
   },
 
+  price:{
+    type:Number,
+    default:0
+  },
+
   rate:{
       type:[Number]
   },
@@ -112,7 +117,7 @@ driversRequestsScehma.pre("save", async function (next) {
 driversRequestsScehma.statics.findByCredentials = async (username, password) => {
   
   const driver = await DriversRequests.findOne({ username });
-  console.log(driver)
+  // console.log(driver)
   if (!driver) {
     throw new Error("Unable to login.Please check username or password");
   }
